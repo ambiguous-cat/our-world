@@ -1,0 +1,2870 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "58ebdb47-ea19-4dfa-a8f6-3a044d7b3787",
+  "prevId": "977c3386-7c4a-49f2-8106-bf85be80b91a",
+  "tables": {
+    "site_settings": {
+      "name": "site_settings",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1
+        },
+        "home_note": {
+          "name": "home_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'今天也辛苦啦，记得收下属于你的小快乐。'"
+        },
+        "home_note_signature": {
+          "name": "home_note_signature",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'最爱小狗的管理员'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "site_settings_singleton_check": {
+          "name": "site_settings_singleton_check",
+          "value": "\"site_settings\".\"id\" = 1"
+        },
+        "site_settings_home_note_check": {
+          "name": "site_settings_home_note_check",
+          "value": "length(trim(\"site_settings\".\"home_note\")) BETWEEN 1 AND 300"
+        },
+        "site_settings_home_note_signature_check": {
+          "name": "site_settings_home_note_signature_check",
+          "value": "length(trim(\"site_settings\".\"home_note_signature\")) BETWEEN 1 AND 40"
+        }
+      }
+    },
+    "notification_email_outbox": {
+      "name": "notification_email_outbox",
+      "columns": {
+        "recipient_member_id": {
+          "name": "recipient_member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "event_type": {
+          "name": "event_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "event_key": {
+          "name": "event_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "subject": {
+          "name": "subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "heading": {
+          "name": "heading",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "action_label": {
+          "name": "action_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "action_path": {
+          "name": "action_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "attempt_count": {
+          "name": "attempt_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "last_attempt_at": {
+          "name": "last_attempt_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "next_attempt_at": {
+          "name": "next_attempt_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "last_error": {
+          "name": "last_error",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "provider_email_id": {
+          "name": "provider_email_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sent_at": {
+          "name": "sent_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "notification_email_outbox_event_unique": {
+          "name": "notification_email_outbox_event_unique",
+          "columns": [
+            "event_type",
+            "event_key"
+          ],
+          "isUnique": true
+        },
+        "notification_email_outbox_pending_idx": {
+          "name": "notification_email_outbox_pending_idx",
+          "columns": [
+            "sent_at",
+            "next_attempt_at",
+            "id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "notification_email_outbox_recipient_member_id_members_id_fk": {
+          "name": "notification_email_outbox_recipient_member_id_members_id_fk",
+          "tableFrom": "notification_email_outbox",
+          "tableTo": "members",
+          "columnsFrom": [
+            "recipient_member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "notification_email_outbox_attempt_count_check": {
+          "name": "notification_email_outbox_attempt_count_check",
+          "value": "\"notification_email_outbox\".\"attempt_count\" >= 0"
+        },
+        "notification_email_outbox_content_check": {
+          "name": "notification_email_outbox_content_check",
+          "value": "length(trim(\"notification_email_outbox\".\"event_type\")) > 0\n        AND length(trim(\"notification_email_outbox\".\"event_key\")) > 0\n        AND length(trim(\"notification_email_outbox\".\"subject\")) > 0\n        AND length(trim(\"notification_email_outbox\".\"heading\")) > 0\n        AND length(trim(\"notification_email_outbox\".\"message\")) > 0\n        AND length(trim(\"notification_email_outbox\".\"action_label\")) > 0\n        AND \"notification_email_outbox\".\"action_path\" LIKE '/%'"
+        }
+      }
+    },
+    "draw_configs": {
+      "name": "draw_configs",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "ticket_type_id": {
+          "name": "ticket_type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "prize_weight": {
+          "name": "prize_weight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "retry_weight": {
+          "name": "retry_weight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "miss_weight": {
+          "name": "miss_weight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "draw_configs_ticket_version_unique": {
+          "name": "draw_configs_ticket_version_unique",
+          "columns": [
+            "ticket_type_id",
+            "version"
+          ],
+          "isUnique": true
+        },
+        "draw_configs_one_active_per_ticket_unique": {
+          "name": "draw_configs_one_active_per_ticket_unique",
+          "columns": [
+            "ticket_type_id"
+          ],
+          "isUnique": true,
+          "where": "\"draw_configs\".\"is_active\" = 1"
+        },
+        "draw_configs_ticket_idx": {
+          "name": "draw_configs_ticket_idx",
+          "columns": [
+            "ticket_type_id",
+            "created_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "draw_configs_ticket_type_id_ticket_types_id_fk": {
+          "name": "draw_configs_ticket_type_id_ticket_types_id_fk",
+          "tableFrom": "draw_configs",
+          "tableTo": "ticket_types",
+          "columnsFrom": [
+            "ticket_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "draw_configs_version_check": {
+          "name": "draw_configs_version_check",
+          "value": "\"draw_configs\".\"version\" > 0"
+        },
+        "draw_configs_prize_weight_check": {
+          "name": "draw_configs_prize_weight_check",
+          "value": "\"draw_configs\".\"prize_weight\" BETWEEN 0 AND 10000"
+        },
+        "draw_configs_retry_weight_check": {
+          "name": "draw_configs_retry_weight_check",
+          "value": "\"draw_configs\".\"retry_weight\" BETWEEN 0 AND 10000"
+        },
+        "draw_configs_miss_weight_check": {
+          "name": "draw_configs_miss_weight_check",
+          "value": "\"draw_configs\".\"miss_weight\" BETWEEN 0 AND 10000"
+        },
+        "draw_configs_total_weight_check": {
+          "name": "draw_configs_total_weight_check",
+          "value": "\"draw_configs\".\"prize_weight\" + \"draw_configs\".\"retry_weight\" + \"draw_configs\".\"miss_weight\" = 10000"
+        }
+      }
+    },
+    "draw_records": {
+      "name": "draw_records",
+      "columns": {
+        "member_id": {
+          "name": "member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "request_key": {
+          "name": "request_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ticket_type_id": {
+          "name": "ticket_type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "result_type": {
+          "name": "result_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "balance_before": {
+          "name": "balance_before",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "balance_after": {
+          "name": "balance_after",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "prize_id": {
+          "name": "prize_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "pool_item_id": {
+          "name": "pool_item_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "retry_option_id": {
+          "name": "retry_option_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "extra_count": {
+          "name": "extra_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "ticket_snapshot": {
+          "name": "ticket_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "config_snapshot": {
+          "name": "config_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "result_snapshot": {
+          "name": "result_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "draw_records_request_key_unique": {
+          "name": "draw_records_request_key_unique",
+          "columns": [
+            "request_key"
+          ],
+          "isUnique": true
+        },
+        "draw_records_created_at_idx": {
+          "name": "draw_records_created_at_idx",
+          "columns": [
+            "created_at"
+          ],
+          "isUnique": false
+        },
+        "draw_records_ticket_created_idx": {
+          "name": "draw_records_ticket_created_idx",
+          "columns": [
+            "ticket_type_id",
+            "created_at"
+          ],
+          "isUnique": false
+        },
+        "draw_records_result_type_idx": {
+          "name": "draw_records_result_type_idx",
+          "columns": [
+            "result_type"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "draw_records_member_id_members_id_fk": {
+          "name": "draw_records_member_id_members_id_fk",
+          "tableFrom": "draw_records",
+          "tableTo": "members",
+          "columnsFrom": [
+            "member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "draw_records_ticket_type_id_ticket_types_id_fk": {
+          "name": "draw_records_ticket_type_id_ticket_types_id_fk",
+          "tableFrom": "draw_records",
+          "tableTo": "ticket_types",
+          "columnsFrom": [
+            "ticket_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "draw_records_prize_id_prizes_id_fk": {
+          "name": "draw_records_prize_id_prizes_id_fk",
+          "tableFrom": "draw_records",
+          "tableTo": "prizes",
+          "columnsFrom": [
+            "prize_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "draw_records_pool_item_id_ticket_prize_pool_items_id_fk": {
+          "name": "draw_records_pool_item_id_ticket_prize_pool_items_id_fk",
+          "tableFrom": "draw_records",
+          "tableTo": "ticket_prize_pool_items",
+          "columnsFrom": [
+            "pool_item_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "draw_records_retry_option_id_retry_options_id_fk": {
+          "name": "draw_records_retry_option_id_retry_options_id_fk",
+          "tableFrom": "draw_records",
+          "tableTo": "retry_options",
+          "columnsFrom": [
+            "retry_option_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "draw_records_result_type_check": {
+          "name": "draw_records_result_type_check",
+          "value": "\"draw_records\".\"result_type\" IN ('prize', 'retry', 'miss')"
+        },
+        "draw_records_balance_before_check": {
+          "name": "draw_records_balance_before_check",
+          "value": "\"draw_records\".\"balance_before\" >= 1"
+        },
+        "draw_records_balance_after_check": {
+          "name": "draw_records_balance_after_check",
+          "value": "\"draw_records\".\"balance_after\" >= 0"
+        },
+        "draw_records_result_fields_check": {
+          "name": "draw_records_result_fields_check",
+          "value": "(\n        (\"draw_records\".\"result_type\" = 'prize'\n          AND \"draw_records\".\"prize_id\" IS NOT NULL\n          AND \"draw_records\".\"pool_item_id\" IS NOT NULL\n          AND \"draw_records\".\"retry_option_id\" IS NULL\n          AND \"draw_records\".\"extra_count\" IS NULL)\n        OR\n        (\"draw_records\".\"result_type\" = 'retry'\n          AND \"draw_records\".\"prize_id\" IS NULL\n          AND \"draw_records\".\"pool_item_id\" IS NULL\n          AND \"draw_records\".\"retry_option_id\" IS NOT NULL\n          AND \"draw_records\".\"extra_count\" > 0)\n        OR\n        (\"draw_records\".\"result_type\" = 'miss'\n          AND \"draw_records\".\"prize_id\" IS NULL\n          AND \"draw_records\".\"pool_item_id\" IS NULL\n          AND \"draw_records\".\"retry_option_id\" IS NULL\n          AND \"draw_records\".\"extra_count\" IS NULL)\n      )"
+        },
+        "draw_records_balance_change_check": {
+          "name": "draw_records_balance_change_check",
+          "value": "(\n        (\"draw_records\".\"result_type\" IN ('prize', 'miss')\n          AND \"draw_records\".\"balance_after\" = \"draw_records\".\"balance_before\" - 1)\n        OR\n        (\"draw_records\".\"result_type\" = 'retry'\n          AND \"draw_records\".\"balance_after\" = \"draw_records\".\"balance_before\" - 1 + \"draw_records\".\"extra_count\")\n      )"
+        },
+        "draw_records_ticket_snapshot_json_check": {
+          "name": "draw_records_ticket_snapshot_json_check",
+          "value": "json_valid(\"draw_records\".\"ticket_snapshot\")"
+        },
+        "draw_records_config_snapshot_json_check": {
+          "name": "draw_records_config_snapshot_json_check",
+          "value": "json_valid(\"draw_records\".\"config_snapshot\")"
+        },
+        "draw_records_result_snapshot_json_check": {
+          "name": "draw_records_result_snapshot_json_check",
+          "value": "json_valid(\"draw_records\".\"result_snapshot\")"
+        }
+      }
+    },
+    "external_ticket_grants": {
+      "name": "external_ticket_grants",
+      "columns": {
+        "member_id": {
+          "name": "member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "source_type": {
+          "name": "source_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ticket_balance_log_id": {
+          "name": "ticket_balance_log_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "external_ticket_grants_source_unique": {
+          "name": "external_ticket_grants_source_unique",
+          "columns": [
+            "member_id",
+            "source_type",
+            "source_id"
+          ],
+          "isUnique": true
+        },
+        "external_ticket_grants_balance_log_unique": {
+          "name": "external_ticket_grants_balance_log_unique",
+          "columns": [
+            "ticket_balance_log_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "external_ticket_grants_member_id_members_id_fk": {
+          "name": "external_ticket_grants_member_id_members_id_fk",
+          "tableFrom": "external_ticket_grants",
+          "tableTo": "members",
+          "columnsFrom": [
+            "member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "external_ticket_grants_ticket_balance_log_id_ticket_balance_logs_id_fk": {
+          "name": "external_ticket_grants_ticket_balance_log_id_ticket_balance_logs_id_fk",
+          "tableFrom": "external_ticket_grants",
+          "tableTo": "ticket_balance_logs",
+          "columnsFrom": [
+            "ticket_balance_log_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "external_ticket_grants_source_type_check": {
+          "name": "external_ticket_grants_source_type_check",
+          "value": "\"external_ticket_grants\".\"source_type\" IN ('quiz')"
+        }
+      }
+    },
+    "player_ticket_balances": {
+      "name": "player_ticket_balances",
+      "columns": {
+        "member_id": {
+          "name": "member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ticket_type_id": {
+          "name": "ticket_type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "balance": {
+          "name": "balance",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "player_ticket_balances_member_id_members_id_fk": {
+          "name": "player_ticket_balances_member_id_members_id_fk",
+          "tableFrom": "player_ticket_balances",
+          "tableTo": "members",
+          "columnsFrom": [
+            "member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "player_ticket_balances_ticket_type_id_ticket_types_id_fk": {
+          "name": "player_ticket_balances_ticket_type_id_ticket_types_id_fk",
+          "tableFrom": "player_ticket_balances",
+          "tableTo": "ticket_types",
+          "columnsFrom": [
+            "ticket_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "player_ticket_balances_member_id_ticket_type_id_pk": {
+          "columns": [
+            "member_id",
+            "ticket_type_id"
+          ],
+          "name": "player_ticket_balances_member_id_ticket_type_id_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "player_ticket_balances_balance_check": {
+          "name": "player_ticket_balances_balance_check",
+          "value": "\"player_ticket_balances\".\"balance\" >= 0"
+        }
+      }
+    },
+    "prize_stock_logs": {
+      "name": "prize_stock_logs",
+      "columns": {
+        "actor_type": {
+          "name": "actor_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "actor_member_id": {
+          "name": "actor_member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "prize_id": {
+          "name": "prize_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "delta": {
+          "name": "delta",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "stock_before": {
+          "name": "stock_before",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "stock_after": {
+          "name": "stock_after",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "draw_record_id": {
+          "name": "draw_record_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "prize_stock_logs_draw_record_unique": {
+          "name": "prize_stock_logs_draw_record_unique",
+          "columns": [
+            "draw_record_id"
+          ],
+          "isUnique": true,
+          "where": "\"prize_stock_logs\".\"draw_record_id\" IS NOT NULL"
+        },
+        "prize_stock_logs_prize_created_idx": {
+          "name": "prize_stock_logs_prize_created_idx",
+          "columns": [
+            "prize_id",
+            "created_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "prize_stock_logs_actor_member_id_members_id_fk": {
+          "name": "prize_stock_logs_actor_member_id_members_id_fk",
+          "tableFrom": "prize_stock_logs",
+          "tableTo": "members",
+          "columnsFrom": [
+            "actor_member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "prize_stock_logs_prize_id_prizes_id_fk": {
+          "name": "prize_stock_logs_prize_id_prizes_id_fk",
+          "tableFrom": "prize_stock_logs",
+          "tableTo": "prizes",
+          "columnsFrom": [
+            "prize_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "prize_stock_logs_draw_record_id_draw_records_id_fk": {
+          "name": "prize_stock_logs_draw_record_id_draw_records_id_fk",
+          "tableFrom": "prize_stock_logs",
+          "tableTo": "draw_records",
+          "columnsFrom": [
+            "draw_record_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "prize_stock_logs_actor_check": {
+          "name": "prize_stock_logs_actor_check",
+          "value": "(\"prize_stock_logs\".\"actor_type\" = 'member' AND \"prize_stock_logs\".\"actor_member_id\" IS NOT NULL) OR (\"prize_stock_logs\".\"actor_type\" = 'system' AND \"prize_stock_logs\".\"actor_member_id\" IS NULL)"
+        },
+        "prize_stock_logs_delta_check": {
+          "name": "prize_stock_logs_delta_check",
+          "value": "\"prize_stock_logs\".\"delta\" <> 0"
+        },
+        "prize_stock_logs_stock_before_check": {
+          "name": "prize_stock_logs_stock_before_check",
+          "value": "\"prize_stock_logs\".\"stock_before\" >= 0"
+        },
+        "prize_stock_logs_stock_after_check": {
+          "name": "prize_stock_logs_stock_after_check",
+          "value": "\"prize_stock_logs\".\"stock_after\" >= 0"
+        },
+        "prize_stock_logs_stock_change_check": {
+          "name": "prize_stock_logs_stock_change_check",
+          "value": "\"prize_stock_logs\".\"stock_after\" = \"prize_stock_logs\".\"stock_before\" + \"prize_stock_logs\".\"delta\""
+        },
+        "prize_stock_logs_reason_check": {
+          "name": "prize_stock_logs_reason_check",
+          "value": "\"prize_stock_logs\".\"reason\" IN ('draw', 'admin_add', 'admin_reduce')"
+        },
+        "prize_stock_logs_source_check": {
+          "name": "prize_stock_logs_source_check",
+          "value": "(\n        (\"prize_stock_logs\".\"reason\" = 'draw'\n          AND \"prize_stock_logs\".\"delta\" = -1\n          AND \"prize_stock_logs\".\"draw_record_id\" IS NOT NULL)\n        OR\n        (\"prize_stock_logs\".\"reason\" = 'admin_add'\n          AND \"prize_stock_logs\".\"delta\" > 0\n          AND \"prize_stock_logs\".\"draw_record_id\" IS NULL)\n        OR\n        (\"prize_stock_logs\".\"reason\" = 'admin_reduce'\n          AND \"prize_stock_logs\".\"delta\" < 0\n          AND \"prize_stock_logs\".\"draw_record_id\" IS NULL)\n      )"
+        }
+      }
+    },
+    "prize_wins": {
+      "name": "prize_wins",
+      "columns": {
+        "member_id": {
+          "name": "member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "draw_record_id": {
+          "name": "draw_record_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "prize_id": {
+          "name": "prize_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'draw'"
+        },
+        "name_snapshot": {
+          "name": "name_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description_snapshot": {
+          "name": "description_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_path_snapshot": {
+          "name": "image_path_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'unredeemed'"
+        },
+        "requested_at": {
+          "name": "requested_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "redeemed_at": {
+          "name": "redeemed_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "revoked_at": {
+          "name": "revoked_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "prize_wins_draw_record_unique": {
+          "name": "prize_wins_draw_record_unique",
+          "columns": [
+            "draw_record_id"
+          ],
+          "isUnique": true
+        },
+        "prize_wins_status_idx": {
+          "name": "prize_wins_status_idx",
+          "columns": [
+            "status",
+            "created_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "prize_wins_member_id_members_id_fk": {
+          "name": "prize_wins_member_id_members_id_fk",
+          "tableFrom": "prize_wins",
+          "tableTo": "members",
+          "columnsFrom": [
+            "member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "prize_wins_draw_record_id_draw_records_id_fk": {
+          "name": "prize_wins_draw_record_id_draw_records_id_fk",
+          "tableFrom": "prize_wins",
+          "tableTo": "draw_records",
+          "columnsFrom": [
+            "draw_record_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "prize_wins_prize_id_prizes_id_fk": {
+          "name": "prize_wins_prize_id_prizes_id_fk",
+          "tableFrom": "prize_wins",
+          "tableTo": "prizes",
+          "columnsFrom": [
+            "prize_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "prize_wins_source_check": {
+          "name": "prize_wins_source_check",
+          "value": "(\n        (\"prize_wins\".\"source\" = 'draw' AND \"prize_wins\".\"draw_record_id\" IS NOT NULL)\n        OR\n        (\"prize_wins\".\"source\" = 'admin_grant' AND \"prize_wins\".\"draw_record_id\" IS NULL)\n      )"
+        },
+        "prize_wins_name_snapshot_check": {
+          "name": "prize_wins_name_snapshot_check",
+          "value": "length(trim(\"prize_wins\".\"name_snapshot\")) > 0"
+        },
+        "prize_wins_status_check": {
+          "name": "prize_wins_status_check",
+          "value": "\"prize_wins\".\"status\" IN ('unredeemed', 'requested', 'redeemed', 'revoked')"
+        },
+        "prize_wins_status_timestamps_check": {
+          "name": "prize_wins_status_timestamps_check",
+          "value": "(\n        (\"prize_wins\".\"status\" = 'unredeemed'\n          AND \"prize_wins\".\"requested_at\" IS NULL\n          AND \"prize_wins\".\"redeemed_at\" IS NULL\n          AND \"prize_wins\".\"revoked_at\" IS NULL)\n        OR\n        (\"prize_wins\".\"status\" = 'requested'\n          AND \"prize_wins\".\"requested_at\" IS NOT NULL\n          AND \"prize_wins\".\"redeemed_at\" IS NULL\n          AND \"prize_wins\".\"revoked_at\" IS NULL)\n        OR\n        (\"prize_wins\".\"status\" = 'redeemed'\n          AND \"prize_wins\".\"requested_at\" IS NULL\n          AND \"prize_wins\".\"redeemed_at\" IS NOT NULL\n          AND \"prize_wins\".\"revoked_at\" IS NULL)\n        OR\n        (\"prize_wins\".\"status\" = 'revoked'\n          AND \"prize_wins\".\"requested_at\" IS NULL\n          AND \"prize_wins\".\"redeemed_at\" IS NULL\n          AND \"prize_wins\".\"revoked_at\" IS NOT NULL)\n      )"
+        }
+      }
+    },
+    "prizes": {
+      "name": "prizes",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_path": {
+          "name": "image_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "remaining_stock": {
+          "name": "remaining_stock",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "archived_at": {
+          "name": "archived_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "prizes_drawable_idx": {
+          "name": "prizes_drawable_idx",
+          "columns": [
+            "is_active",
+            "remaining_stock"
+          ],
+          "isUnique": false
+        },
+        "prizes_sort_order_idx": {
+          "name": "prizes_sort_order_idx",
+          "columns": [
+            "sort_order",
+            "id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "prizes_name_check": {
+          "name": "prizes_name_check",
+          "value": "length(trim(\"prizes\".\"name\")) > 0"
+        },
+        "prizes_remaining_stock_check": {
+          "name": "prizes_remaining_stock_check",
+          "value": "\"prizes\".\"remaining_stock\" >= 0"
+        }
+      }
+    },
+    "redemption_logs": {
+      "name": "redemption_logs",
+      "columns": {
+        "actor_type": {
+          "name": "actor_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "actor_member_id": {
+          "name": "actor_member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "prize_win_id": {
+          "name": "prize_win_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "action": {
+          "name": "action",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "redemption_logs_prize_win_created_idx": {
+          "name": "redemption_logs_prize_win_created_idx",
+          "columns": [
+            "prize_win_id",
+            "created_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "redemption_logs_actor_member_id_members_id_fk": {
+          "name": "redemption_logs_actor_member_id_members_id_fk",
+          "tableFrom": "redemption_logs",
+          "tableTo": "members",
+          "columnsFrom": [
+            "actor_member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "redemption_logs_prize_win_id_prize_wins_id_fk": {
+          "name": "redemption_logs_prize_win_id_prize_wins_id_fk",
+          "tableFrom": "redemption_logs",
+          "tableTo": "prize_wins",
+          "columnsFrom": [
+            "prize_win_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "redemption_logs_actor_check": {
+          "name": "redemption_logs_actor_check",
+          "value": "(\"redemption_logs\".\"actor_type\" = 'member' AND \"redemption_logs\".\"actor_member_id\" IS NOT NULL) OR (\"redemption_logs\".\"actor_type\" = 'system' AND \"redemption_logs\".\"actor_member_id\" IS NULL)"
+        },
+        "redemption_logs_action_check": {
+          "name": "redemption_logs_action_check",
+          "value": "\"redemption_logs\".\"action\" IN (\n        'grant',\n        'request',\n        'cancel_request',\n        'reject_request',\n        'redeem',\n        'undo_redeem',\n        'revoke',\n        'restore'\n      )"
+        }
+      }
+    },
+    "retry_options": {
+      "name": "retry_options",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "ticket_type_id": {
+          "name": "ticket_type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "extra_count": {
+          "name": "extra_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "weight": {
+          "name": "weight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "archived_at": {
+          "name": "archived_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "retry_options_ticket_active_idx": {
+          "name": "retry_options_ticket_active_idx",
+          "columns": [
+            "ticket_type_id",
+            "is_active",
+            "archived_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "retry_options_ticket_type_id_ticket_types_id_fk": {
+          "name": "retry_options_ticket_type_id_ticket_types_id_fk",
+          "tableFrom": "retry_options",
+          "tableTo": "ticket_types",
+          "columnsFrom": [
+            "ticket_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "retry_options_extra_count_check": {
+          "name": "retry_options_extra_count_check",
+          "value": "\"retry_options\".\"extra_count\" > 0"
+        },
+        "retry_options_weight_check": {
+          "name": "retry_options_weight_check",
+          "value": "\"retry_options\".\"weight\" > 0"
+        }
+      }
+    },
+    "ticket_balance_logs": {
+      "name": "ticket_balance_logs",
+      "columns": {
+        "actor_type": {
+          "name": "actor_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "actor_member_id": {
+          "name": "actor_member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "member_id": {
+          "name": "member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "ticket_type_id": {
+          "name": "ticket_type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ticket_name_snapshot": {
+          "name": "ticket_name_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "delta": {
+          "name": "delta",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "balance_before": {
+          "name": "balance_before",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "balance_after": {
+          "name": "balance_after",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "draw_record_id": {
+          "name": "draw_record_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "ticket_balance_logs_created_at_idx": {
+          "name": "ticket_balance_logs_created_at_idx",
+          "columns": [
+            "created_at"
+          ],
+          "isUnique": false
+        },
+        "ticket_balance_logs_ticket_created_idx": {
+          "name": "ticket_balance_logs_ticket_created_idx",
+          "columns": [
+            "ticket_type_id",
+            "created_at"
+          ],
+          "isUnique": false
+        },
+        "ticket_balance_logs_draw_record_idx": {
+          "name": "ticket_balance_logs_draw_record_idx",
+          "columns": [
+            "draw_record_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "ticket_balance_logs_actor_member_id_members_id_fk": {
+          "name": "ticket_balance_logs_actor_member_id_members_id_fk",
+          "tableFrom": "ticket_balance_logs",
+          "tableTo": "members",
+          "columnsFrom": [
+            "actor_member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "ticket_balance_logs_member_id_members_id_fk": {
+          "name": "ticket_balance_logs_member_id_members_id_fk",
+          "tableFrom": "ticket_balance_logs",
+          "tableTo": "members",
+          "columnsFrom": [
+            "member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "ticket_balance_logs_ticket_type_id_ticket_types_id_fk": {
+          "name": "ticket_balance_logs_ticket_type_id_ticket_types_id_fk",
+          "tableFrom": "ticket_balance_logs",
+          "tableTo": "ticket_types",
+          "columnsFrom": [
+            "ticket_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "ticket_balance_logs_draw_record_id_draw_records_id_fk": {
+          "name": "ticket_balance_logs_draw_record_id_draw_records_id_fk",
+          "tableFrom": "ticket_balance_logs",
+          "tableTo": "draw_records",
+          "columnsFrom": [
+            "draw_record_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "ticket_balance_logs_actor_check": {
+          "name": "ticket_balance_logs_actor_check",
+          "value": "(\"ticket_balance_logs\".\"actor_type\" = 'member' AND \"ticket_balance_logs\".\"actor_member_id\" IS NOT NULL) OR (\"ticket_balance_logs\".\"actor_type\" = 'system' AND \"ticket_balance_logs\".\"actor_member_id\" IS NULL)"
+        },
+        "ticket_balance_logs_delta_check": {
+          "name": "ticket_balance_logs_delta_check",
+          "value": "\"ticket_balance_logs\".\"delta\" <> 0"
+        },
+        "ticket_balance_logs_balance_before_check": {
+          "name": "ticket_balance_logs_balance_before_check",
+          "value": "\"ticket_balance_logs\".\"balance_before\" >= 0"
+        },
+        "ticket_balance_logs_balance_after_check": {
+          "name": "ticket_balance_logs_balance_after_check",
+          "value": "\"ticket_balance_logs\".\"balance_after\" >= 0"
+        },
+        "ticket_balance_logs_balance_change_check": {
+          "name": "ticket_balance_logs_balance_change_check",
+          "value": "\"ticket_balance_logs\".\"balance_after\" = \"ticket_balance_logs\".\"balance_before\" + \"ticket_balance_logs\".\"delta\""
+        },
+        "ticket_balance_logs_reason_check": {
+          "name": "ticket_balance_logs_reason_check",
+          "value": "\"ticket_balance_logs\".\"reason\" IN ('draw_cost', 'retry_reward', 'admin_grant', 'admin_revoke')"
+        },
+        "ticket_balance_logs_source_check": {
+          "name": "ticket_balance_logs_source_check",
+          "value": "(\n        (\"ticket_balance_logs\".\"reason\" = 'draw_cost'\n          AND \"ticket_balance_logs\".\"delta\" = -1\n          AND \"ticket_balance_logs\".\"draw_record_id\" IS NOT NULL)\n        OR\n        (\"ticket_balance_logs\".\"reason\" = 'retry_reward'\n          AND \"ticket_balance_logs\".\"delta\" > 0\n          AND \"ticket_balance_logs\".\"draw_record_id\" IS NOT NULL)\n        OR\n        (\"ticket_balance_logs\".\"reason\" = 'admin_grant'\n          AND \"ticket_balance_logs\".\"delta\" > 0\n          AND \"ticket_balance_logs\".\"draw_record_id\" IS NULL\n          AND length(trim(\"ticket_balance_logs\".\"note\")) > 0)\n        OR\n        (\"ticket_balance_logs\".\"reason\" = 'admin_revoke'\n          AND \"ticket_balance_logs\".\"delta\" < 0\n          AND \"ticket_balance_logs\".\"draw_record_id\" IS NULL)\n      )"
+        }
+      }
+    },
+    "ticket_grant_notices": {
+      "name": "ticket_grant_notices",
+      "columns": {
+        "ticket_balance_log_id": {
+          "name": "ticket_balance_log_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "shown_at": {
+          "name": "shown_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "ticket_grant_notices_shown_at_idx": {
+          "name": "ticket_grant_notices_shown_at_idx",
+          "columns": [
+            "shown_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "ticket_grant_notices_ticket_balance_log_id_ticket_balance_logs_id_fk": {
+          "name": "ticket_grant_notices_ticket_balance_log_id_ticket_balance_logs_id_fk",
+          "tableFrom": "ticket_grant_notices",
+          "tableTo": "ticket_balance_logs",
+          "columnsFrom": [
+            "ticket_balance_log_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "ticket_prize_pool_items": {
+      "name": "ticket_prize_pool_items",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "ticket_type_id": {
+          "name": "ticket_type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "prize_id": {
+          "name": "prize_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "weight": {
+          "name": "weight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 1
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "archived_at": {
+          "name": "archived_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "ticket_prize_pool_items_ticket_prize_unique": {
+          "name": "ticket_prize_pool_items_ticket_prize_unique",
+          "columns": [
+            "ticket_type_id",
+            "prize_id"
+          ],
+          "isUnique": true
+        },
+        "ticket_prize_pool_items_drawable_idx": {
+          "name": "ticket_prize_pool_items_drawable_idx",
+          "columns": [
+            "ticket_type_id",
+            "is_active",
+            "archived_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "ticket_prize_pool_items_ticket_type_id_ticket_types_id_fk": {
+          "name": "ticket_prize_pool_items_ticket_type_id_ticket_types_id_fk",
+          "tableFrom": "ticket_prize_pool_items",
+          "tableTo": "ticket_types",
+          "columnsFrom": [
+            "ticket_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "ticket_prize_pool_items_prize_id_prizes_id_fk": {
+          "name": "ticket_prize_pool_items_prize_id_prizes_id_fk",
+          "tableFrom": "ticket_prize_pool_items",
+          "tableTo": "prizes",
+          "columnsFrom": [
+            "prize_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "ticket_prize_pool_items_weight_check": {
+          "name": "ticket_prize_pool_items_weight_check",
+          "value": "\"ticket_prize_pool_items\".\"weight\" > 0"
+        }
+      }
+    },
+    "ticket_types": {
+      "name": "ticket_types",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'permanent'"
+        },
+        "display_icon": {
+          "name": "display_icon",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'ticket'"
+        },
+        "cover_image_path": {
+          "name": "cover_image_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "draw_background_image_path": {
+          "name": "draw_background_image_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "theme_color": {
+          "name": "theme_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'#BFD9A8'"
+        },
+        "accent_color": {
+          "name": "accent_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'#F3AFC1'"
+        },
+        "scratch_mask_color": {
+          "name": "scratch_mask_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'#A8A9AD'"
+        },
+        "scratch_text_color": {
+          "name": "scratch_text_color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'#FFFFFF'"
+        },
+        "scratch_prompt": {
+          "name": "scratch_prompt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'刮开看看吧'"
+        },
+        "is_grant_enabled": {
+          "name": "is_grant_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "is_draw_enabled": {
+          "name": "is_draw_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "grant_start_at": {
+          "name": "grant_start_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "grant_end_at": {
+          "name": "grant_end_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "archived_at": {
+          "name": "archived_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "ticket_types_display_idx": {
+          "name": "ticket_types_display_idx",
+          "columns": [
+            "archived_at",
+            "sort_order"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "ticket_types_name_check": {
+          "name": "ticket_types_name_check",
+          "value": "length(trim(\"ticket_types\".\"name\")) > 0"
+        },
+        "ticket_types_kind_check": {
+          "name": "ticket_types_kind_check",
+          "value": "\"ticket_types\".\"kind\" IN ('permanent', 'limited')"
+        },
+        "ticket_types_theme_color_check": {
+          "name": "ticket_types_theme_color_check",
+          "value": "\"ticket_types\".\"theme_color\" GLOB '#[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]'"
+        },
+        "ticket_types_accent_color_check": {
+          "name": "ticket_types_accent_color_check",
+          "value": "\"ticket_types\".\"accent_color\" GLOB '#[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]'"
+        },
+        "ticket_types_scratch_mask_color_check": {
+          "name": "ticket_types_scratch_mask_color_check",
+          "value": "\"ticket_types\".\"scratch_mask_color\" GLOB '#[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]'"
+        },
+        "ticket_types_scratch_text_color_check": {
+          "name": "ticket_types_scratch_text_color_check",
+          "value": "\"ticket_types\".\"scratch_text_color\" GLOB '#[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]'"
+        },
+        "ticket_types_grant_window_check": {
+          "name": "ticket_types_grant_window_check",
+          "value": "\"ticket_types\".\"grant_start_at\" IS NULL OR \"ticket_types\".\"grant_end_at\" IS NULL OR \"ticket_types\".\"grant_start_at\" < \"ticket_types\".\"grant_end_at\""
+        }
+      }
+    },
+    "quiz_answers": {
+      "name": "quiz_answers",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "attempt_id": {
+          "name": "attempt_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "question_id": {
+          "name": "question_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "question_type_snapshot": {
+          "name": "question_type_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "prompt_snapshot": {
+          "name": "prompt_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "options_snapshot": {
+          "name": "options_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "selected_option_id": {
+          "name": "selected_option_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "selected_option_text_snapshot": {
+          "name": "selected_option_text_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "text_answer": {
+          "name": "text_answer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "is_correct": {
+          "name": "is_correct",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reference_answer_snapshot": {
+          "name": "reference_answer_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "explanation_snapshot": {
+          "name": "explanation_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "message_snapshot": {
+          "name": "message_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "quiz_answers_attempt_question_unique": {
+          "name": "quiz_answers_attempt_question_unique",
+          "columns": [
+            "attempt_id",
+            "question_id"
+          ],
+          "isUnique": true
+        },
+        "quiz_answers_attempt_sort_unique": {
+          "name": "quiz_answers_attempt_sort_unique",
+          "columns": [
+            "attempt_id",
+            "sort_order"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "quiz_answers_attempt_id_quiz_attempts_id_fk": {
+          "name": "quiz_answers_attempt_id_quiz_attempts_id_fk",
+          "tableFrom": "quiz_answers",
+          "tableTo": "quiz_attempts",
+          "columnsFrom": [
+            "attempt_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "quiz_answers_question_id_quiz_questions_id_fk": {
+          "name": "quiz_answers_question_id_quiz_questions_id_fk",
+          "tableFrom": "quiz_answers",
+          "tableTo": "quiz_questions",
+          "columnsFrom": [
+            "question_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "quiz_answers_type_check": {
+          "name": "quiz_answers_type_check",
+          "value": "\"quiz_answers\".\"question_type_snapshot\" IN ('single', 'text')"
+        },
+        "quiz_answers_options_json_check": {
+          "name": "quiz_answers_options_json_check",
+          "value": "json_valid(\"quiz_answers\".\"options_snapshot\")"
+        },
+        "quiz_answers_value_check": {
+          "name": "quiz_answers_value_check",
+          "value": "(\n        (\"quiz_answers\".\"question_type_snapshot\" = 'single'\n          AND \"quiz_answers\".\"selected_option_id\" IS NOT NULL\n          AND length(trim(\"quiz_answers\".\"selected_option_text_snapshot\")) > 0\n          AND \"quiz_answers\".\"text_answer\" IS NULL\n          AND \"quiz_answers\".\"is_correct\" IS NOT NULL)\n        OR\n        (\"quiz_answers\".\"question_type_snapshot\" = 'text'\n          AND \"quiz_answers\".\"selected_option_id\" IS NULL\n          AND \"quiz_answers\".\"selected_option_text_snapshot\" IS NULL\n          AND length(trim(\"quiz_answers\".\"text_answer\")) > 0\n          AND \"quiz_answers\".\"is_correct\" IS NULL)\n      )"
+        }
+      }
+    },
+    "quiz_attempts": {
+      "name": "quiz_attempts",
+      "columns": {
+        "member_id": {
+          "name": "member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "quiz_id": {
+          "name": "quiz_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "request_key": {
+          "name": "request_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "attempt_number": {
+          "name": "attempt_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "single_correct_count": {
+          "name": "single_correct_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "single_question_count": {
+          "name": "single_question_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "reward_balance_log_id": {
+          "name": "reward_balance_log_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reward_ticket_name_snapshot": {
+          "name": "reward_ticket_name_snapshot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reward_quantity_snapshot": {
+          "name": "reward_quantity_snapshot",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "submitted_at": {
+          "name": "submitted_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "quiz_attempts_request_key_unique": {
+          "name": "quiz_attempts_request_key_unique",
+          "columns": [
+            "request_key"
+          ],
+          "isUnique": true
+        },
+        "quiz_attempts_quiz_number_unique": {
+          "name": "quiz_attempts_quiz_number_unique",
+          "columns": [
+            "member_id",
+            "quiz_id",
+            "attempt_number"
+          ],
+          "isUnique": true
+        },
+        "quiz_attempts_one_reward_per_quiz_unique": {
+          "name": "quiz_attempts_one_reward_per_quiz_unique",
+          "columns": [
+            "member_id",
+            "quiz_id"
+          ],
+          "isUnique": true,
+          "where": "\"quiz_attempts\".\"reward_balance_log_id\" IS NOT NULL"
+        },
+        "quiz_attempts_quiz_submitted_idx": {
+          "name": "quiz_attempts_quiz_submitted_idx",
+          "columns": [
+            "quiz_id",
+            "submitted_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "quiz_attempts_member_id_members_id_fk": {
+          "name": "quiz_attempts_member_id_members_id_fk",
+          "tableFrom": "quiz_attempts",
+          "tableTo": "members",
+          "columnsFrom": [
+            "member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "quiz_attempts_quiz_id_quizzes_id_fk": {
+          "name": "quiz_attempts_quiz_id_quizzes_id_fk",
+          "tableFrom": "quiz_attempts",
+          "tableTo": "quizzes",
+          "columnsFrom": [
+            "quiz_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "quiz_attempts_reward_balance_log_id_ticket_balance_logs_id_fk": {
+          "name": "quiz_attempts_reward_balance_log_id_ticket_balance_logs_id_fk",
+          "tableFrom": "quiz_attempts",
+          "tableTo": "ticket_balance_logs",
+          "columnsFrom": [
+            "reward_balance_log_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "quiz_attempts_number_check": {
+          "name": "quiz_attempts_number_check",
+          "value": "\"quiz_attempts\".\"attempt_number\" > 0"
+        },
+        "quiz_attempts_score_check": {
+          "name": "quiz_attempts_score_check",
+          "value": "\"quiz_attempts\".\"single_correct_count\" BETWEEN 0 AND \"quiz_attempts\".\"single_question_count\""
+        },
+        "quiz_attempts_reward_snapshot_check": {
+          "name": "quiz_attempts_reward_snapshot_check",
+          "value": "(\n        (\"quiz_attempts\".\"reward_balance_log_id\" IS NULL AND \"quiz_attempts\".\"reward_ticket_name_snapshot\" IS NULL AND \"quiz_attempts\".\"reward_quantity_snapshot\" IS NULL)\n        OR\n        (\"quiz_attempts\".\"reward_balance_log_id\" IS NOT NULL AND length(trim(\"quiz_attempts\".\"reward_ticket_name_snapshot\")) > 0 AND \"quiz_attempts\".\"reward_quantity_snapshot\" > 0)\n      )"
+        }
+      }
+    },
+    "quiz_options": {
+      "name": "quiz_options",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "question_id": {
+          "name": "question_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_correct": {
+          "name": "is_correct",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "quiz_options_question_sort_unique": {
+          "name": "quiz_options_question_sort_unique",
+          "columns": [
+            "question_id",
+            "sort_order"
+          ],
+          "isUnique": true
+        },
+        "quiz_options_one_correct_unique": {
+          "name": "quiz_options_one_correct_unique",
+          "columns": [
+            "question_id"
+          ],
+          "isUnique": true,
+          "where": "\"quiz_options\".\"is_correct\" = 1"
+        }
+      },
+      "foreignKeys": {
+        "quiz_options_question_id_quiz_questions_id_fk": {
+          "name": "quiz_options_question_id_quiz_questions_id_fk",
+          "tableFrom": "quiz_options",
+          "tableTo": "quiz_questions",
+          "columnsFrom": [
+            "question_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "quiz_options_content_check": {
+          "name": "quiz_options_content_check",
+          "value": "length(trim(\"quiz_options\".\"content\")) BETWEEN 1 AND 300"
+        }
+      }
+    },
+    "quiz_publish_notices": {
+      "name": "quiz_publish_notices",
+      "columns": {
+        "member_id": {
+          "name": "member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quiz_id": {
+          "name": "quiz_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "shown_at": {
+          "name": "shown_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "quiz_publish_notices_shown_at_idx": {
+          "name": "quiz_publish_notices_shown_at_idx",
+          "columns": [
+            "shown_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "quiz_publish_notices_member_id_members_id_fk": {
+          "name": "quiz_publish_notices_member_id_members_id_fk",
+          "tableFrom": "quiz_publish_notices",
+          "tableTo": "members",
+          "columnsFrom": [
+            "member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "quiz_publish_notices_quiz_id_quizzes_id_fk": {
+          "name": "quiz_publish_notices_quiz_id_quizzes_id_fk",
+          "tableFrom": "quiz_publish_notices",
+          "tableTo": "quizzes",
+          "columnsFrom": [
+            "quiz_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "quiz_publish_notices_member_id_quiz_id_pk": {
+          "columns": [
+            "member_id",
+            "quiz_id"
+          ],
+          "name": "quiz_publish_notices_member_id_quiz_id_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "quiz_questions": {
+      "name": "quiz_questions",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "quiz_id": {
+          "name": "quiz_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "prompt": {
+          "name": "prompt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "reference_answer": {
+          "name": "reference_answer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "explanation": {
+          "name": "explanation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        }
+      },
+      "indexes": {
+        "quiz_questions_quiz_sort_unique": {
+          "name": "quiz_questions_quiz_sort_unique",
+          "columns": [
+            "quiz_id",
+            "sort_order"
+          ],
+          "isUnique": true
+        },
+        "quiz_questions_quiz_idx": {
+          "name": "quiz_questions_quiz_idx",
+          "columns": [
+            "quiz_id",
+            "id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "quiz_questions_quiz_id_quizzes_id_fk": {
+          "name": "quiz_questions_quiz_id_quizzes_id_fk",
+          "tableFrom": "quiz_questions",
+          "tableTo": "quizzes",
+          "columnsFrom": [
+            "quiz_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "quiz_questions_type_check": {
+          "name": "quiz_questions_type_check",
+          "value": "\"quiz_questions\".\"type\" IN ('single', 'text')"
+        },
+        "quiz_questions_prompt_check": {
+          "name": "quiz_questions_prompt_check",
+          "value": "length(trim(\"quiz_questions\".\"prompt\")) BETWEEN 1 AND 500"
+        }
+      }
+    },
+    "quizzes": {
+      "name": "quizzes",
+      "columns": {
+        "created_by_member_id": {
+          "name": "created_by_member_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'draft'"
+        },
+        "reward_ticket_type_id": {
+          "name": "reward_ticket_type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reward_quantity": {
+          "name": "reward_quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "reward_note": {
+          "name": "reward_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(unixepoch() * 1000)"
+        },
+        "published_at": {
+          "name": "published_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "closed_at": {
+          "name": "closed_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "archived_at": {
+          "name": "archived_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "quizzes_status_updated_idx": {
+          "name": "quizzes_status_updated_idx",
+          "columns": [
+            "status",
+            "updated_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "quizzes_created_by_member_id_members_id_fk": {
+          "name": "quizzes_created_by_member_id_members_id_fk",
+          "tableFrom": "quizzes",
+          "tableTo": "members",
+          "columnsFrom": [
+            "created_by_member_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "quizzes_reward_ticket_type_id_ticket_types_id_fk": {
+          "name": "quizzes_reward_ticket_type_id_ticket_types_id_fk",
+          "tableFrom": "quizzes",
+          "tableTo": "ticket_types",
+          "columnsFrom": [
+            "reward_ticket_type_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "quizzes_title_check": {
+          "name": "quizzes_title_check",
+          "value": "length(trim(\"quizzes\".\"title\")) BETWEEN 1 AND 100"
+        },
+        "quizzes_status_check": {
+          "name": "quizzes_status_check",
+          "value": "\"quizzes\".\"status\" IN ('draft', 'published', 'closed', 'archived')"
+        },
+        "quizzes_reward_check": {
+          "name": "quizzes_reward_check",
+          "value": "(\n        (\"quizzes\".\"reward_ticket_type_id\" IS NULL AND \"quizzes\".\"reward_quantity\" = 0 AND \"quizzes\".\"reward_note\" IS NULL)\n        OR\n        (\"quizzes\".\"reward_ticket_type_id\" IS NOT NULL AND \"quizzes\".\"reward_quantity\" > 0 AND length(trim(\"quizzes\".\"reward_note\")) > 0)\n      )"
+        }
+      }
+    },
+    "members": {
+      "name": "members",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "members_role_unique": {
+          "name": "members_role_unique",
+          "columns": [
+            "role"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "members_fixed_identity_check": {
+          "name": "members_fixed_identity_check",
+          "value": "(\"members\".\"id\" = 'member_001' AND \"members\".\"role\" = 'player') OR (\"members\".\"id\" = 'member_002' AND \"members\".\"role\" = 'admin')"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

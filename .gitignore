@@ -1,0 +1,41 @@
+# Dependencies and build output
+/node_modules/
+/.next/
+/out/
+/build/
+/coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Private configuration; only the template is public
+.env*
+!.env.example
+*.pem
+*.key
+
+# Runtime data, uploads, SQLite sidecars, and backups
+/data/
+/uploads/
+/backups/
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+
+# Test workspaces, logs, and archives
+/.tmp*/
+*.log
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+.DS_Store
+Thumbs.db
+/.vercel/
+
+# Local agent settings
+/.claude/
+/.codex/
+/.agents/

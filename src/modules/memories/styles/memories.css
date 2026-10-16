@@ -1,0 +1,187 @@
+.memories-preview{min-height:100vh;background:#fcf9f3;color:#584c49;font-family:Arial,"Microsoft YaHei",sans-serif;background-image:radial-gradient(#cbbdad40 .7px,transparent .7px);background-size:7px 7px}.memories-preview button,.memories-preview input,.memories-preview textarea,.memories-preview select{font:inherit}.memories-preview button{transition:background .18s,transform .18s}.memories-preview button:hover{filter:brightness(.97)}.memories-preview button:focus-visible,.memories-preview a:focus-visible{outline:3px solid #b76c7e;outline-offset:4px}.memory-topbar{height:78px;border-bottom:1px solid #e9e1d8;display:flex;align-items:center;justify-content:space-between;max-width:1180px;margin:auto;font-size:12px;color:#91817a}.memory-topbar a{color:#77655d;text-decoration:none}.memory-topbar>span:nth-child(2){letter-spacing:2px;font-size:10px}.memory-topbar b{margin:0 14px;font-weight:400;color:#c8b6aa}.memory-preview-label{border:1px solid #decfbb;padding:6px 12px;border-radius:20px;background:#f8f0e2}.memory-wrap{max-width:1100px;margin:auto}.memory-hero{display:flex;align-items:center;justify-content:space-between;padding:48px 38px 34px 8px;min-height:270px}.memory-kicker{font-size:10px;letter-spacing:2px;color:#a0806a;margin:0 0 12px;font-weight:600}.memory-hero h1{font-family:Georgia,"Microsoft YaHei",serif;font-size:38px;letter-spacing:3px;font-weight:600;margin:0 0 16px}.memory-hero h1 span{display:inline-block;color:#c77f8a;font-size:35px;margin-left:20px;transform:rotate(15deg)}.memory-hero>div>p:not(.memory-kicker){font-size:14px;color:#8e7d74;letter-spacing:1px}.memory-hero-note{margin-top:22px;font-size:11px;color:#aa9384}.memory-book{position:relative;width:170px;height:188px;background:#efddd3;transform:rotate(8deg);border-radius:3px 12px 12px 3px;border-left:10px solid #d1ada2;box-shadow:5px 6px 0 #f8f0e9,6px 7px 0 #d6c6b7,12px 15px 30px #795c4018;padding:23px 22px;color:#81564c}.memory-book>span{font-family:Georgia,serif;font-size:24px;line-height:1.15}.memory-book em{font-weight:normal}.memory-book b{position:absolute;right:12px;top:26px;font-size:30px;color:#bf7c77}.memory-book small{display:block;font-size:8px;margin-top:18px;letter-spacing:1px}.memory-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.memory-switch{background:#eee8df;padding:5px;border-radius:11px;display:flex;gap:4px}.memory-switch button{background:transparent;padding:10px 24px;border-radius:7px;font-size:13px;color:#8b7d72}.memory-switch button[aria-pressed=true]{background:#fffdf9;color:#a26272;box-shadow:0 2px 5px #7057370a}.memory-primary{border-radius:9px;background:#b97383;color:white!important;padding:12px 24px;font-size:13px!important;box-shadow:0 4px 8px #b9738315}.memory-primary:disabled{opacity:.55;cursor:not-allowed}.memory-layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:28px;align-items:start}.memory-main{background:#fffefa;border:1px solid #e9e0d5;border-radius:16px;padding:28px;box-shadow:0 6px 20px #6a4e2c03;min-width:0}.memory-section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:26px}.memory-section-title h2{font-size:21px;font-weight:500;margin:0;letter-spacing:1px}.memory-section-title h2>span{display:block;font-size:11px;font-weight:400;color:#ab9789;margin-top:9px;letter-spacing:0}.memory-section-title .memory-kicker{font-size:8px}.memory-month-nav{display:flex;align-items:center;gap:3px;flex-shrink:0}.memory-month-nav button,.memory-quiet{background:transparent;font-size:11px;color:#988173;padding:8px}.memory-month-nav button:first-child,.memory-month-nav button:last-child{font-size:25px}.memory-weekdays,.memory-calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}.memory-weekdays{margin-bottom:10px}.memory-weekdays span{text-align:center;font-size:11px;color:#b0a197;padding:8px}.memory-weekdays span:nth-last-child(-n+2){color:#bc8f95}.memory-calendar{gap:7px}.memory-day{aspect-ratio:1/.98;border-radius:10px;background:#faf7f1;position:relative;text-align:left;align-self:stretch;padding:10px;color:#807164;font-size:12px}.memory-day.featured{background:#f7e9e8;box-shadow:inset 0 0 0 1px #d8a8ac}.memory-day.featured>span:first-child{background:#b97484;color:white;border-radius:50%;padding:4px 7px;margin-left:-4px}.memory-day-sticker{display:block;text-align:center;font-size:20px;margin-top:3px}.memory-dots{display:flex;position:absolute;bottom:8px;left:0;right:0;justify-content:center;gap:4px}.memory-dots i,.memory-legend i{width:5px;height:5px;border-radius:50%;display:inline-block}.kind-1{background:#92a88d}.kind-2{background:#d99ba6}.kind-3{background:#94a9c3}.kind-4{background:#d3b46d}.memory-legend{border-top:1px dashed #e9dfd1;margin-top:24px;padding-top:20px;display:flex;gap:16px;flex-wrap:wrap;font-size:10px;color:#9b8879}.memory-legend>span{display:flex;align-items:center;gap:6px}.memory-legend small{margin-left:auto;font-size:9px;color:#b4a495}.memory-month-note{background:#f4eddb;position:relative;padding:30px 24px;border-radius:3px 3px 14px 3px;transform:rotate(1deg);margin-top:8px}.memory-tape{position:absolute;top:-10px;left:87px;width:77px;height:22px;background:#d5dfca99;transform:rotate(-5deg)}.memory-month-note .memory-kicker{font-size:8px;letter-spacing:1.5px}.memory-month-note h3{font-size:19px;font-weight:500;line-height:1.8;margin:18px 0 10px}.memory-month-note>p:not(.memory-kicker){font-size:11px;line-height:2;color:#978675}.memory-month-note>div{display:flex;align-items:baseline;gap:7px;border-top:1px solid #e4d9c5;padding-top:18px;margin-top:22px}.memory-month-note strong{font-size:27px;font-family:Georgia,serif;color:#a07760;font-weight:400}.memory-month-note>div span{font-size:9px;color:#a48d79}.memory-month-note strong:nth-of-type(2){margin-left:8px}.memory-note-flower{position:absolute;right:18px;top:95px;font-size:43px;color:#c28b78;transform:rotate(20deg);opacity:.6}.memory-recent{margin-top:30px;padding:0 5px}.memory-recent .memory-kicker{font-size:8px}.memory-recent h3{font-size:14px;font-weight:500;display:flex;justify-content:space-between}.memory-recent h3 span{color:#b49b88}.memory-recent>button{background:#fffefa;border:1px solid #e8e0d6;border-radius:8px;width:100%;padding:8px;text-align:left;transform:rotate(-2deg)}.memory-recent strong{font-size:12px;display:block;font-weight:500;padding:13px 5px 8px}.memory-recent small{font-size:9px;color:#a28d7c;padding:0 5px 8px;display:block}.memory-preview-note{font-size:10px;line-height:1.9;color:#ac9c8d;padding:20px 6px}.memory-scene{height:245px;overflow:hidden;position:relative;border-radius:5px;background:linear-gradient(#b7b4ce,#e7bbc3 43%,#f3c1a3 68%,#b08c8e)}.memory-scene-sun{position:absolute;width:46px;height:46px;background:#fff0c9;border-radius:50%;top:40%;left:62%;box-shadow:0 0 35px #fce7b0}.memory-scene-land{position:absolute;width:150%;height:50%;bottom:-25%;left:-20%;border-radius:45% 60% 0 0;background:#777f83;transform:rotate(-8deg);box-shadow:30px -12px 0 #a1939a}.memory-scene small{position:absolute;bottom:10px;left:12px;z-index:1;color:#fff9eb;font-size:8px;letter-spacing:1px}.memory-recent .memory-scene{height:145px}.memory-recent .memory-scene small{font-size:6px;padding:0}.memory-scene.coffee{background:linear-gradient(90deg,#a59c86 3%,transparent 3% 48%,#a59c86 48% 51%,transparent 51%),linear-gradient(#d6e1cf 65%,#b59479 65%)}.coffee .memory-scene-sun{display:none}.coffee .memory-scene-land{display:none}.memory-scene-object{position:absolute;font-size:90px;bottom:10%;left:35%;filter:drop-shadow(10px 10px 5px #59483630)}.memory-scene.mountain{background:linear-gradient(#bfd9dc,#e8ece0)}.mountain .memory-scene-land{bottom:-5%;height:55%;background:#708f7b;box-shadow:35px -35px 0 #a2b7a0;transform:rotate(-20deg)}.memory-bottom{padding:40px 0 24px;text-align:center;font-size:10px;letter-spacing:1px;color:#b7a593;font-family:Georgia,serif}.memory-bottom span{display:block;margin-top:12px;color:#c48f8e;font-size:18px}.memory-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.memory-filters button{background:#f7f3ed;border-radius:20px;font-size:11px;padding:8px 13px;color:#9b887a}.memory-filters button[aria-pressed=true]{background:#f1dfe0;color:#a16473}.memory-entry{padding:0 0 26px;margin-bottom:26px;border-bottom:1px dashed #e9dfd4}.memory-entry:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}.memory-entry-meta{display:flex;align-items:center;gap:10px}.memory-avatar{background:#f2e6dc;border-radius:50%;width:36px;height:36px;display:grid;place-items:center}.memory-avatar.puppy{background:#eee8d4}.memory-entry-meta strong{font-size:12px;font-weight:500;display:block}.memory-entry-meta small{display:block;font-size:10px;color:#b2a091;margin-top:4px}.memory-entry-category{margin-left:auto;font-size:10px;color:#a08b7d}.memory-entry h3{font-size:18px;font-weight:500;margin:20px 0 12px}.memory-entry>p{font-size:13px;line-height:2;color:#8c7c70;white-space:pre-wrap;overflow-wrap:anywhere}.memory-photo-button{display:block;width:100%;padding:0;background:none;margin:16px 0}.memory-entry footer{font-size:10px;color:#b3988a;margin-top:16px}.memory-empty{text-align:center;padding:45px 8px}.memory-empty>span{font-size:48px;color:#c9a897}.memory-empty h3{font-size:17px;font-weight:500}.memory-empty p{font-size:12px;color:#ac9988;margin-bottom:24px}.memory-status{font-size:12px;text-align:center;color:#a16473}.memory-dialog{border:1px solid #e8daca;border-radius:18px;background:#fffdf7;color:#584c49;padding:28px;width:min(520px,calc(100% - 32px));max-height:90vh;margin:auto;box-shadow:0 20px 80px #4d302c25}.memory-dialog::backdrop{background:#4e3f385e;backdrop-filter:blur(4px)}.memory-dialog header{display:flex;align-items:center;justify-content:space-between}.memory-dialog header h2{font-size:22px;font-weight:500;margin:8px 0}.memory-dialog header button,.memory-lightbox-close{background:transparent;font-size:28px;padding:8px}.memory-form-note{font-size:11px;color:#b1807b}.memory-dialog label{display:grid;gap:8px;font-size:12px;margin-top:18px}.memory-dialog input,.memory-dialog select,.memory-dialog textarea{width:100%;border:1px solid #e4d9ce;background:#fffdfa;padding:10px 12px;border-radius:7px;color:#66574d;min-width:0}.memory-dialog textarea{resize:vertical}.memory-upload-placeholder{border:1px dashed #deccbd;padding:22px 10px;text-align:center;font-size:11px;color:#ad9786;border-radius:8px;margin:20px 0}.memory-dialog .memory-primary{width:100%}.memory-lightbox{width:min(800px,calc(100% - 32px));padding-top:48px}.memory-lightbox-close{position:absolute;right:12px;top:5px}.memory-lightbox .memory-scene{height:55vh}.memory-lightbox>p{text-align:center;font-size:11px;color:#ac9988}
+@media(min-width:1400px){.memory-wrap{padding-top:10px}.memory-hero{padding-bottom:42px}}@media(max-width:1150px){.memory-wrap{margin:0 28px}.memory-topbar{margin:0 28px}.memory-layout{grid-template-columns:minmax(0,1fr) 240px;gap:20px}.memory-main{padding:22px}.memory-day{padding:8px}.memory-note-flower{right:10px}}@media(max-width:760px){.memory-topbar{height:62px;margin:0 20px}.memory-topbar>span:nth-child(2){display:none}.memory-wrap{margin:0 18px}.memory-hero{padding:32px 6px;min-height:220px}.memory-hero h1{font-size:29px;letter-spacing:1px}.memory-hero h1 span{font-size:25px;margin-left:10px}.memory-hero>div>p:not(.memory-kicker){font-size:11px;max-width:205px;line-height:1.8}.memory-hero-note{font-size:9px;max-width:200px;line-height:1.8;margin-top:14px}.memory-book{width:104px;height:136px;padding:18px 12px;border-left-width:6px;margin-right:8px}.memory-book>span{font-size:18px}.memory-book b{font-size:18px;top:18px;right:8px}.memory-book small{font-size:6px;margin-top:12px}.memory-layout{grid-template-columns:1fr}.memory-main{padding:20px 14px;border-radius:13px}.memory-section-title h2{font-size:19px}.memory-section-title .memory-kicker{font-size:7px;letter-spacing:1px}.memory-month-nav button{padding:5px}.memory-calendar{gap:5px}.memory-day{padding:7px 6px;aspect-ratio:1/1.25;font-size:11px;border-radius:7px}.memory-day-sticker{font-size:17px;margin-top:8px}.memory-dots{bottom:6px}.memory-legend{gap:14px;font-size:9px}.memory-legend small{width:100%;text-align:center;margin-top:4px}.memory-sidebar{display:grid;grid-template-columns:1fr 1fr;gap:14px}.memory-month-note{padding:24px 14px;margin-top:8px;transform:none}.memory-month-note h3{font-size:16px}.memory-month-note>p:not(.memory-kicker){font-size:10px}.memory-note-flower{display:none}.memory-tape{left:30%}.memory-month-note>div{flex-wrap:wrap;gap:5px}.memory-month-note strong{font-size:22px}.memory-month-note strong:nth-of-type(2){margin-left:0}.memory-month-note>div span{font-size:8px}.memory-recent{margin-top:14px;padding:0}.memory-recent .memory-scene{height:120px}.memory-recent strong{font-size:10px;line-height:1.7}.memory-recent .memory-scene small{display:none}.memory-preview-note{grid-column:1/-1;text-align:center;padding:0;margin:8px 0}.memory-bottom{padding-top:24px;font-size:9px}.memory-switch button{padding:9px 18px}.memory-primary{padding:12px 18px}.memory-entry h3{font-size:17px}.memory-dialog{padding:22px}.memory-dialog header h2{font-size:19px}.memory-scene{height:210px}}
+
+
+/* All variants share geometry; only the artwork and surface treatment change. */
+.memories-preview { background-image: none; }
+.calendar-style-picker { padding: 20px; margin: 0 0 24px; border: 1px solid #e9dfd4; border-radius: 14px; background: #fffdf9; }
+.calendar-style-picker p { font-size: 12px; color: #a08c7e; margin: 7px 0 16px; }
+.calendar-style-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.calendar-style-options button { display: flex; align-items: center; gap: 12px; padding: 14px; text-align: left; border: 1px solid #eee5dc; border-radius: 10px; background: #fffefa; }
+.calendar-style-options button[aria-pressed=true] { border-color: #c5929c; background: #fbefee; box-shadow: 0 0 0 1px #c5929c33; }
+.calendar-style-options strong { font-size: 13px; font-weight: 500; display: block; }
+.calendar-style-options small { font-size: 10px; color: #9a8579; display: block; margin-top: 5px; }
+.style-swatch { width: 32px; height: 38px; border-radius: 7px; flex-shrink: 0; }
+.swatch-storybook { background: linear-gradient(150deg,#fff0d8 45%,#a7bd9c 46% 70%,#819f89 71%); }
+.swatch-watercolor { background: radial-gradient(ellipse at 65% 70%,#bad8cc,transparent 70%),radial-gradient(ellipse at 30% 20%,#f0c6ce,transparent 65%),#fff; }
+.swatch-minimal { background: linear-gradient(170deg,transparent 40%,#e3c1c5 41% 53%,transparent 54%); border: 1px solid #eadfd6; }
+.memory-calendar { gap: 9px; }
+.memory-day.paper-day { position: relative; display: block; padding: 0; isolation: isolate; overflow: hidden; aspect-ratio: 1 / 1.12; border: 1px solid #eee6da; border-radius: 12px; background: #faf7f0; box-shadow: none; }
+.memory-day.paper-day:hover { border-color: #bba38e; filter: brightness(.98); }
+.memory-day .paper-number { position: absolute; top: 8px; left: 8px; width: 26px; height: 26px; display: grid; place-items: center; font: 18px Georgia, serif; color: #756454; z-index: 4; }
+.paper-today .paper-number::before { content: ""; position: absolute; inset: -1px; border: 1.5px solid #b97782; border-radius: 50%; }
+.paper-art { position: absolute; right: 0; bottom: 10%; width: 82%; height: 70%; z-index: 2; pointer-events: none; }
+.paper-art svg { width: 100%; height: 100%; }
+.paper-day-label { position: absolute; left: 9px; bottom: 17px; font-size: 8px; color: #856653; z-index: 3; writing-mode: vertical-rl; letter-spacing: 1px; }
+.paper-record-dot { position: absolute; bottom: 6px; left: calc(50% - 2.5px); width: 5px; height: 5px; border-radius: 50%; background: #a88771; z-index: 4; }
+.memory-legend .paper-dot-key { background: #a88771; }
+/* Cream picture book: broad, quiet color fields and full-color illustrations. */
+.calendar-storybook .paper-date { background: #f8e9e7; }
+.calendar-storybook .paper-travel { background: #eaf1e7; }
+.calendar-storybook .paper-celebration { background: #fbf0d5; }
+.calendar-storybook .paper-day:not(.paper-ordinary)::after { content: ""; position: absolute; bottom: -30%; left: -25%; width: 150%; height: 67%; border-radius: 50%; background: #e7bfc24a; }
+.calendar-storybook .paper-travel::after { background: #a2b8a54a !important; }
+.calendar-storybook .paper-celebration::after { background: #e6cb8b4a !important; }
+/* Watercolor: overlapping translucent washes with delicate outlines. */
+.calendar-watercolor .paper-day { background: #fffefa; border-color: #efe9e0; }
+.calendar-watercolor .paper-date { --wash: #e8b3c2; --line: #bd8498; }
+.calendar-watercolor .paper-travel { --wash: #a8c9bb; --line: #7d9e91; }
+.calendar-watercolor .paper-celebration { --wash: #ecd196; --line: #b79964; }
+.calendar-watercolor .paper-day:not(.paper-ordinary)::before { content: ""; position: absolute; inset: 15% -15% -15% 3%; background: radial-gradient(ellipse at 60% 60%, var(--wash),transparent 65%),radial-gradient(ellipse at 25% 70%,var(--wash),transparent 57%); opacity: .65; filter: blur(5px); border-radius: 45% 65% 40% 60%; }
+.calendar-watercolor .paper-art { width: 76%; opacity: .85; transform: rotate(-5deg); }
+.calendar-watercolor .paper-art path { fill: transparent; stroke: var(--line); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.calendar-watercolor .paper-art circle { fill: var(--wash); opacity: .65; }
+/* Minimal journal: open whitespace, a short paint stroke and small line drawings. */
+.calendar-minimal .paper-day { background: transparent; border-color: transparent; }
+.calendar-minimal .paper-day:hover { background: #f8f4ec; }
+.calendar-minimal .paper-day::after { content: ""; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: #eee7de; }
+.calendar-minimal .paper-date { --ink: #c48e9c; --paint: #f0d5d9; }
+.calendar-minimal .paper-travel { --ink: #86a091; --paint: #dce7df; }
+.calendar-minimal .paper-celebration { --ink: #b7a16f; --paint: #f1e6c6; }
+.calendar-minimal .paper-day:not(.paper-ordinary)::before { content: ""; position: absolute; top: 24px; left: 10px; width: 35px; height: 10px; background: var(--paint); transform: rotate(-8deg); border-radius: 45% 20% 40% 30%; }
+.calendar-minimal .paper-art { width: 46%; height: 44%; right: 9%; bottom: 16%; }
+.calendar-minimal .paper-art path { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.calendar-minimal .paper-art circle { fill: none; stroke: var(--ink); stroke-width: 2; }
+.calendar-minimal .paper-day-label { writing-mode: horizontal-tb; bottom: 17px; font-size: 7px; letter-spacing: 0; }
+@media (max-width:760px) {
+  .calendar-style-picker { padding: 14px; }
+  .calendar-style-options { gap: 6px; }
+  .calendar-style-options button { padding: 12px 5px; flex-direction: column; gap: 8px; text-align: center; }
+  .calendar-style-options strong { font-size: 11px; }
+  .calendar-style-options small { font-size: 8px; line-height: 1.6; }
+  .style-swatch { width: 25px; height: 29px; }
+  .memory-calendar { gap: 6px; }
+  .memory-day.paper-day { aspect-ratio: 1 / 1.35; border-radius: 9px; }
+  .memory-day .paper-number { top: 6px; left: 4px; width: 22px; height: 22px; font-size: 16px; }
+  .paper-day-label { display: none; }
+  .paper-art { width: 88%; height: 62%; bottom: 11%; }
+  .paper-record-dot { bottom: 5px; width: 4px; height: 4px; left: calc(50% - 2px); }
+  .calendar-minimal .paper-day:not(.paper-ordinary)::before { top: 19px; left: 5px; width: 27px; }
+}
+
+/* Airy picture book: open journal spacing with full-color miniature artwork. */
+.calendar-style-options { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.swatch-airy { background: radial-gradient(ellipse at 65% 75%,#abc0ad 0 18%,transparent 20%),radial-gradient(circle at 75% 40%,#ead19b 0 10%,transparent 12%),#fffdf8; border: 1px solid #eee5d8; }
+.calendar-airy .paper-day { background: transparent; border-color: transparent; }
+.calendar-airy .paper-day:hover { background: #faf6ee; }
+.calendar-airy .paper-day::after { content: ""; position: absolute; bottom: 0; left: 12%; right: 12%; height: 1px; background: #ece5db; }
+.calendar-airy .paper-date { --scene-wash: #f5e5e5; }
+.calendar-airy .paper-travel { --scene-wash: #e9efe5; }
+.calendar-airy .paper-celebration { --scene-wash: #faf0d8; }
+.calendar-airy .paper-day:not(.paper-ordinary)::before { content: ""; position: absolute; right: 5%; bottom: 15%; width: 61%; height: 47%; border-radius: 55% 45% 50% 40%; background: radial-gradient(ellipse, var(--scene-wash), transparent 73%); }
+.calendar-airy .paper-art { width: 65%; height: 59%; right: 2%; bottom: 14%; }
+.calendar-airy .paper-day-label { writing-mode: horizontal-tb; left: 9px; bottom: 18px; font-size: 7px; letter-spacing: 0; color: #a38e7f; }
+.calendar-airy .paper-record-dot { background: #ab8c77; }
+@media (max-width:760px) {
+  .calendar-style-options { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .calendar-style-options button { flex-direction: row; text-align: left; padding: 11px; }
+  .calendar-airy .paper-art { width: 70%; height: 56%; right: 0; bottom: 14%; }
+}
+
+/* Airy variant borrows the picture-book arc and the journal marker stroke. */
+.calendar-airy .paper-day:not(.paper-ordinary)::before {
+  inset: auto;
+  left: -25%;
+  bottom: -30%;
+  width: 150%;
+  height: 67%;
+  border-radius: 50%;
+  background: var(--scene-wash);
+  opacity: .8;
+}
+.calendar-airy .paper-day:not(.paper-ordinary) .paper-number::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  bottom: 1px;
+  width: 30px;
+  height: 10px;
+  background: var(--scene-wash);
+  transform: rotate(-8deg);
+  border-radius: 45% 20% 40% 30%;
+  z-index: -1;
+}
+@media (max-width:760px) {
+  .calendar-airy .paper-day:not(.paper-ordinary) .paper-number::after {
+    width: 27px;
+    height: 9px;
+  }
+}
+
+/* Refine calendar density and the hierarchy of weekday, theme and today. */
+.memory-day.paper-day { aspect-ratio: 1 / 1.02; }
+.memory-weekdays span { color: #867568; font-weight: 500; }
+.memory-weekdays span:nth-last-child(-n+2) { color: #a5747f; }
+.calendar-airy .paper-date { --marker-color: #e5b7c0; }
+.calendar-airy .paper-travel { --marker-color: #bfd2c3; }
+.calendar-airy .paper-celebration { --marker-color: #e9d29b; }
+.calendar-airy .paper-day:not(.paper-ordinary) .paper-number::after { background: var(--marker-color); }
+.calendar-airy .paper-day.paper-today {
+  background: #f8e9ed;
+  border-color: #e6bdc7;
+}
+.calendar-airy .paper-today .paper-number { color: #98586c; font-weight: 600; }
+.calendar-airy .paper-today .paper-number::before { border-color: #b86f85; border-width: 2px; }
+.calendar-airy .paper-today .paper-record-dot { background: #b06c80; }
+@media (max-width:760px) {
+  .memory-day.paper-day { aspect-ratio: 1 / 1.22; }
+}
+
+/* Quiet current-day and hover surfaces, without cell borders. */
+.calendar-airy .paper-day:hover { border-color: transparent; background: #f7f3eb; }
+.calendar-airy .paper-day.paper-today { background: #f3eee3; border-color: transparent; }
+.calendar-airy .paper-day.paper-today:hover { background: #eee7da; }
+.calendar-airy .paper-today .paper-number { color: #756454; font-weight: 400; }
+.calendar-airy .paper-today .paper-number::before { content: none; }
+.calendar-airy .paper-today .paper-record-dot { background: #ab8c77; }
+
+/* Today is a restrained pencil circle, not a filled calendar tile. */
+.calendar-airy .paper-day.paper-today { background: transparent; border-color: transparent; }
+.calendar-airy .paper-day.paper-today:hover { background: #f7f3eb; }
+.calendar-airy .paper-today .paper-number { color: #796553; font-weight: 400; }
+.calendar-airy .paper-today .paper-number::before {
+  content: "";
+  position: absolute;
+  inset: -3px -4px;
+  border: 1.2px solid #aa8d76;
+  border-radius: 48% 52% 49% 51%;
+  transform: rotate(-9deg);
+  pointer-events: none;
+}
+@media (max-width:760px) {
+  .calendar-airy .paper-today .paper-number::before { inset: -2px -3px; }
+}
+
+/* An open, uneven pencil loop with a light overlapping return stroke. */
+.calendar-airy .paper-today .paper-number::before {
+  inset: -5px -6px;
+  border: 0;
+  border-radius: 0;
+  transform: rotate(-7deg);
+  background: center / 100% 100% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M29 6 C19 1 7 7 5 18 C2 28 10 36 21 35 C32 35 37 27 35 17 C34 10 29 5 22 5' fill='none' stroke='%239c8068' stroke-width='1.15' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M8 11 C3 19 5 29 13 33 C21 38 32 33 35 26' fill='none' stroke='%23ad9076' stroke-width='.65' stroke-linecap='round' opacity='.42'/%3E%3C/svg%3E");
+}
+@media (max-width:760px) {
+  .calendar-airy .paper-today .paper-number::before { inset: -4px -5px; }
+}
+
+/* A single imperfect pen stroke with a small overlap at the end. */
+.calendar-airy .paper-today .paper-number::before {
+  inset: -5px -6px;
+  border: 0;
+  border-radius: 0;
+  transform: rotate(-7deg);
+  background: center / 100% 100% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40'%3E%3Cpath d='M32 6 C23 1 9 4 5 14 C1 23 7 34 18 36 C30 39 40 31 40 21 C41 12 34 4 24 4 C18 4 13 6 10 9' fill='none' stroke='%239d7c65' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (max-width:760px) {
+  .calendar-airy .paper-today .paper-number::before { inset: -4px -5px; }
+}

@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1784906680513,
+      "tag": "0000_outgoing_the_watchers",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1785001622548,
+      "tag": "0001_gray_blonde_phantom",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1787913607262,
+      "tag": "0002_fine_iron_patriot",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1788330342802,
+      "tag": "0003_nifty_stardust",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1788341308510,
+      "tag": "0004_lonely_captain_marvel",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1788347297464,
+      "tag": "0005_fluffy_supernaut",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1788918986276,
+      "tag": "0006_sticky_tenebrous",
+      "breakpoints": true
+    }
+  ]
+}

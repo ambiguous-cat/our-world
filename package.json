@@ -1,0 +1,45 @@
+{
+  "name": "our-world",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p 3005",
+    "lint": "eslint",
+    "test:env": "node --test scripts/environment.test.mjs",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node scripts/migrate-database.mjs",
+    "db:verify": "node scripts/verify-database.mjs",
+    "db:studio": "drizzle-kit studio",
+    "smoke:admin-records": "node scripts/smoke-admin-records.mjs",
+    "smoke:balance-notices": "node scripts/smoke-balance-notices.mjs",
+    "smoke:login-rate-limit": "node scripts/smoke-login-rate-limit.mjs",
+    "smoke:member-migration": "node scripts/smoke-member-migration.mjs",
+    "smoke:quiz": "node scripts/smoke-quiz.mjs",
+    "smoke:multi-tickets": "node scripts/smoke-multi-tickets.mjs",
+    "smoke:player-collection": "node scripts/smoke-player-collection.mjs",
+    "smoke:prize-image-upload": "node scripts/smoke-prize-image-upload.mjs"
+  },
+  "dependencies": {
+    "@next/env": "16.2.11",
+    "better-sqlite3": "^11.10.0",
+    "drizzle-orm": "^0.45.2",
+    "next": "16.2.11",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.11",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
